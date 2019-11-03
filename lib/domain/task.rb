@@ -2,6 +2,8 @@ require './lib/api/task_info'
 require 'json'
 
 module Domain
+  # Simple data transfer object that takes API response and provides
+  # unified interface to it.
   class Task
     attr_reader :id, :crawler, :schema_definition, :site, :scrapper_params,
       :crawler_params, :result
