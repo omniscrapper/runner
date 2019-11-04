@@ -16,8 +16,11 @@ module Domain
     end
 
     def output_params
-      # TODO: take from real response
-      { target_type: 'kafka', kafka_host: 'localhost', output_topic: 'scrapping' }
+      adapter = task_params.dig('output', 'adapter')
+      params = JSON.parse(task_params.dig('output', 'adapterParams')).reduce({}) do |result, (key, value)|
+        result.merge(key.to_sym => value)
+      end
+      params.merge(target_type: adapter)
     end
 
     private

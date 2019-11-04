@@ -4,4 +4,4 @@ gem 'sidekiq'
 gem 'httparty'
 gem 'omni_scrapper', path: '~/p/omni_scrapper'
 gem 'graphql-client'
-gem 'omniscrapper_output', github: 'omniscrapper/output'#, path: '~/p/omniscrapper/output'
+gem 'omniscrapper_output', github: 'omniscrapper/output'#, path: '~/p/omniscrapper/output'#

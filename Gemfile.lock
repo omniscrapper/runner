@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/omniscrapper/output.git
-  revision: 9ecdbdb8a044af8a6d5f3ff04db24db938a72d91
+  revision: 0131e9188bac933f13d96c3f74bde382ef208bb3
   specs:
     omniscrapper_output (0.0.1)
       dry-struct
