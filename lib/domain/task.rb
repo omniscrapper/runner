@@ -15,6 +15,11 @@ module Domain
       assign_fields
     end
 
+    def output_params
+      # TODO: take from real response
+      { target_type: 'kafka', kafka_host: 'localhost', output_topic: 'scrapping' }
+    end
+
     private
 
     def assign_fields
