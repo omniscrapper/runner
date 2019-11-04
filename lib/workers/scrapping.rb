@@ -2,7 +2,6 @@ require './lib/domain/task'
 require './lib/operations/scrappers/build'
 require './lib/operations/scrappers/perform'
 
-require 'pry'
 module Workers
   # Executed when new task comes into sidekiq queue
   # Fetches missing task data from GQL api
