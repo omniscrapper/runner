@@ -1,19 +1,18 @@
 GIT
-  remote: git://github.com/omniscrapper/omni_scrapper.git
-  revision: 6431f5d77ce9e589ac2f95af677f6a6b6d352c01
-  specs:
-    omni_scrapper (2.0.0.beta1)
-      ferrum
-      json-schema
-      mechanize
-
-GIT
   remote: git://github.com/omniscrapper/output.git
   revision: 0131e9188bac933f13d96c3f74bde382ef208bb3
   specs:
     omniscrapper_output (0.0.1)
       dry-struct
       waterdrop
+
+PATH
+  remote: ../../omni_scrapper
+  specs:
+    omni_scrapper (2.0.0.beta1)
+      ferrum
+      json-schema
+      mechanize
 
 GEM
   remote: https://rubygems.org/
@@ -27,6 +26,7 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     cliver (0.3.2)
+    coderay (1.1.2)
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     delivery_boy (0.2.8)
@@ -115,6 +115,7 @@ GEM
       nokogiri (~> 1.6)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
+    method_source (0.9.2)
     mime-types (3.3)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
@@ -127,6 +128,9 @@ GEM
     nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     ntlm-http (0.1.1)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
     public_suffix (4.0.1)
     rack (2.0.7)
     rack-protection (2.0.7)
@@ -166,6 +170,7 @@ DEPENDENCIES
   httparty
   omni_scrapper!
   omniscrapper_output!
+  pry
   sidekiq
 
 BUNDLED WITH

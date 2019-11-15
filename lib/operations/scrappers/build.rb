@@ -1,13 +1,15 @@
 require 'omni_scrapper'
+require './lib/api/scrapping/success'
+require './lib/api/scrapping/failure'
 
 module Operations
   module Scrappers
     # Creates scrapper class based on provided task configuration
     class Build
-      def call(task)
+      def call(task, job_id)
         OmniScrapper.setup(scrapper_name(task)) do |config|
-          config.scrapping_error_handler = scrapping_error_handler(task)
-          config.scrapping_success_handler = scrapping_success_handler(task)
+          config.scrapping_error_handler = scrapping_error_handler(task, job_id)
+          config.scrapping_success_handler = scrapping_success_handler(task, job_id)
 
           config.schema task.schema_definition
           config.crawler task.crawler
@@ -28,15 +30,28 @@ module Operations
         "task_#{task.id}_#{task.site.name}_scrapper".to_sym
       end
 
-      def scrapping_success_handler(task)
+      # TODO: probably all those event's will generate too many synchronous calls
+      # which may slow down scrapping process.
+      # Consider switching to kafka for event notifications.
+      def scrapping_error_handler(task, job_id)
         -> (uri, ex) do
-          puts "Scrapping error callback! #{uri} #{ex.message}"
+          Api::Scrapping::Failure.new.call(
+            exception: ex, 
+            url: uri,
+            task_id: task.id,
+            job_id: job_id
+          )
         end
       end
 
-      def scrapping_error_handler(task)
+      def scrapping_success_handler(task, job_id)
         -> (uri, result) do
-          puts "Success! #{uri} #{result}"
+          Api::Scrapping::Success.new.call(
+            url: uri,
+            task_id: task.id,
+            job_id: job_id,
+            checksum: result.checksum
+          )
         end
       end
     end

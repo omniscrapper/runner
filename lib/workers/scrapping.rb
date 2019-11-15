@@ -11,7 +11,7 @@ module Workers
 
     def perform(task_id)
       task = Domain::Task.new(task_id)
-      scrapper_class = Operations::Scrappers::Build.new.call(task)
+      scrapper_class = Operations::Scrappers::Build.new.call(task, jid)
       Operations::Scrappers::Perform.new.call(scrapper_class, task)
     end
   end
