@@ -1,6 +1,7 @@
 require 'omni_scrapper'
 require './lib/api/scrapping/success'
 require './lib/api/scrapping/failure'
+require './lib/api/scrapping/start'
 
 module Operations
   module Scrappers
@@ -8,6 +9,7 @@ module Operations
     class Build
       def call(task, job_id)
         OmniScrapper.setup(scrapper_name(task)) do |config|
+          config.scrapping_start_handler = scrapping_start_handler(task, job_id)
           config.scrapping_error_handler = scrapping_error_handler(task, job_id)
           config.scrapping_success_handler = scrapping_success_handler(task, job_id)
 
@@ -51,6 +53,16 @@ module Operations
             task_id: task.id,
             job_id: job_id,
             checksum: result.checksum
+          )
+        end
+      end
+
+      def scrapping_start_handler(task, job_id)
+        -> (uri) do
+          Api::Scrapping::Start.new.call(
+            url: uri,
+            task_id: task.id,
+            job_id: job_id
           )
         end
       end
