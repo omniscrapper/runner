@@ -29,7 +29,7 @@ module Domain
       @crawler = task_params.dig('crawler')
       @site = Site.new(task_params.dig('site'))
 
-      @schema_definition = task_params.dig('schema', 'definition')
+      @schema_definition = JSON.parse(task_params.dig('schema', 'definition'))
 
       @crawler_params = JSON.parse(task_params.dig('crawlerParams'))
       @scrapper_params = JSON.parse(task_params.dig('scrapperParams'))
