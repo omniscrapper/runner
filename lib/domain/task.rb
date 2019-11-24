@@ -31,8 +31,8 @@ module Domain
 
       @schema_definition = JSON.parse(task_params.dig('schema', 'definition'))
 
-      @crawler_params = JSON.parse(task_params.dig('crawlerParams'))
-      @scrapper_params = JSON.parse(task_params.dig('scrapperParams'))
+      @crawler_params = JSON.parse(task_params.dig('crawlerParams'), symbolize_names: true)
+      @scrapper_params = JSON.parse(task_params.dig('scrapperParams'), symbolize_names: true)
     end
 
     def task_params
